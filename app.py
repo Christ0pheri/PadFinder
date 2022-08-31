@@ -1,8 +1,9 @@
-import requests, re, time
+import requests, re, time, urllib.parse
 
 import settings
 
-def FindPads(baseurl = "", padnames = [], urlextention = "", regex = "", verbose = False, sleep = False):
+def FindPads(filepath = "", baseurl = "", padnames = [], urlextention = "", regex = "", verbose = False, sleep = False):
+	ParseChats(filepath, baseurl = baseurl, padnames = padnames, urlextention = urlextention, regex = regex, verbose = verbose, sleep = sleep)
 	for name in padnames:
 		if verbose:
 			print("Pad", name, "durchsuchen")
@@ -23,29 +24,34 @@ def ParseText(text, regex = "", baseurl= "", padnames = [], verbose = False):
 	for index, url in enumerate(urls):
 		start = len(baseurl)
 		padname = url[start:]
-		#print(index, padname)
+		padname = urllib.parse.unquote(padname) #%20 to Spaces etc.
 
 		if padname not in padnames:
 			if verbose:
 				print(padname, "zu Pads hinzufügen")
-			#print(index, padname)
 			padnames.append(padname)
+
+def ParseChats(filepath, baseurl = "", padnames = [], urlextention = "", regex = "", verbose = False, sleep = False):
+	with open(filepath) as f:
+		content = f.read()
+	ParseText(content, regex = regex, baseurl= baseurl, padnames = padnames, verbose = False)
 
 if __name__ == "__main__":
 	import sys
 
 	verbose = False
-	sleep = False
+	sleep = True
 
 	if len(sys.argv) > 1:
 		for index, arg in enumerate(sys.argv[1:], 1):
 			if arg == "-v":
 				verbose = True
 			elif arg == "-s":
-				sleep = True
+				sleep = False
+
 	padnames = settings.padnames
 
-	FindPads(baseurl = settings.baseurl, padnames = padnames, urlextention = settings.urlextention, regex = settings.regex, verbose = verbose, sleep = sleep)
+	FindPads(filepath = settings.filepath, baseurl = settings.baseurl, padnames = padnames, urlextention = settings.urlextention, regex = settings.regex, verbose = verbose, sleep = sleep)
 
 	if verbose:
 		print(len(padnames), " Pads gefunden")
