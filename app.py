@@ -64,7 +64,7 @@ if __name__ == "__main__":
 
 	FindPads(filepath = settings.filepath, baseurl = settings.baseurl, padnames = padnames, phone_numbers = phone_numbers, urlextention = settings.urlextention, regex = settings.regex, verbose = verbose, sleep = sleep)
 
-  if verbose:
+	if verbose:
 		print(len(padnames), " Pads gefunden")
 		padnames.sort()
 		print(padnames)
