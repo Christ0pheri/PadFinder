@@ -8,7 +8,7 @@ def FindPads(baseurl = "", padnames = [], urlextention = "", regex = "", verbose
 			print("Pad", name, "durchsuchen")
 		text = OpenPads(baseurl = baseurl, padname = name, urlextention = urlextention)
 		ParseText(text, regex = regex, baseurl = baseurl, padnames = padnames, verbose = verbose)
-		ParsePhoneNumbers(text, regex = "^(?:\d{6,}|\d{3,5}\s\d{3,}|\+\d{2,4}\s\d{2,}\s\d{3,}|\+\d{2,4}\s\(0\)\d{2,}\s\d{3,})$", phonenumbers = [], verbose = verbose)
+		ParsePhoneNumbers(text, regex = "\+?\d{2,5}\s?(?:\(\d\))?\s?\d{3,4}\s?\d+", phonenumbers = [], verbose = verbose)
 		if sleep:
 			time.sleep(5)
 
@@ -36,6 +36,7 @@ def ParsePhoneNumbers(text, regex = "", phonenumbers = [], verbose = False):
 	for number in numbers:
 		if verbose:
 			print(number)
+			time.sleep(10)
 
 if __name__ == "__main__":
 	import sys
