@@ -1,8 +1,9 @@
-import requests, re, time, phonenumbers
+import requests, re, time, urllib.parse, phonenumbers
 
 import settings
 
-def FindPads(baseurl = "", padnames = [], phone_numbers = [], urlextention = "", regex = "", verbose = False, sleep = False):
+def FindPads(filepath = "", baseurl = "", padnames = [], phone_numbers = [], urlextention = "", regex = "", verbose = False, sleep = False):
+	ParseChats(filepath, baseurl = baseurl, padnames = padnames, urlextention = urlextention, regex = regex, verbose = verbose, sleep = sleep)
 	for name in padnames:
 		if verbose:
 			print("Pad", name, "durchsuchen")
@@ -23,12 +24,11 @@ def ParseText(text, regex = "", baseurl= "", padnames = [], verbose = False):
 	for index, url in enumerate(urls):
 		start = len(baseurl)
 		padname = url[start:]
-		#print(index, padname)
+		padname = urllib.parse.unquote(padname) #%20 to Spaces etc.
 
 		if padname not in padnames:
 			if verbose:
 				print(padname, "zu Pads hinzufügen")
-			#print(index, padname)
 			padnames.append(padname)
 
 def ParsePhoneNumbers(text, regex = "", phone_numbers = [], padname = "", verbose = False):
@@ -40,24 +40,31 @@ def ParsePhoneNumbers(text, regex = "", phone_numbers = [], padname = "", verbos
 		if verbose:
 			print(number, "in", padname, "gefunden")
 			time.sleep(2.5)
+
+def ParseChats(filepath, baseurl = "", padnames = [], urlextention = "", regex = "", verbose = False, sleep = False):
+	with open(filepath) as f:
+		content = f.read()
+	ParseText(content, regex = regex, baseurl= baseurl, padnames = padnames, verbose = False)
+
 if __name__ == "__main__":
 	import sys
 
 	verbose = False
-	sleep = False
+	sleep = True
 
 	if len(sys.argv) > 1:
 		for index, arg in enumerate(sys.argv[1:], 1):
 			if arg == "-v":
 				verbose = True
 			elif arg == "-s":
-				sleep = True
+				sleep = False
+
 	padnames = settings.padnames
 	phone_numbers = []
 
-	FindPads(baseurl = settings.baseurl, padnames = padnames, phone_numbers = phone_numbers, urlextention = settings.urlextention, regex = settings.regex, verbose = verbose, sleep = sleep)
-
-	if verbose:
+	FindPads(filepath = settings.filepath, baseurl = settings.baseurl, padnames = padnames, , phone_numbers = phone_numbers, urlextention = settings.urlextention, regex = settings.regex, verbose = verbose, sleep = sleep)
+  
+  if verbose:
 		print(len(padnames), " Pads gefunden")
 		padnames.sort()
 		print(padnames)
