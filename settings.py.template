@@ -7,3 +7,5 @@ urlextention = "/export/txt"
 regex = "" #RegEx for finding URLs
 
 filepath = "/path/to/file.txt"
+
+filepath_export = "/path/to/"
