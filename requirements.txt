@@ -2,3 +2,5 @@ requests
 re
 time
 urllib
+phonenumbers
+email_validator
