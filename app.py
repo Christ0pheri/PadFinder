@@ -25,7 +25,7 @@ def OpenPads(baseurl = "", padname = "", urlextention = "", verbose = False, sle
 	except requests.exceptions.InvalidURL:
 		print("Keine gültige URL")
 		return None
-	time.sleep(sleep/10)
+	time.sleep(5)
 	text = result.text
 	if text == "Too many requests, please try again later.": #result doesn't raise an exeption
 		if verbose:
