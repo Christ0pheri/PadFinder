@@ -7,7 +7,9 @@
 Mit `pip3 install -r requirements.txt` die benötigten Pakete installieren.
 
 ### Benutzung
-Um FFF-Pads zu finden muss `baseurl = "https://pad.fridaysforfuture.is/p/"` sein
+Um FFF-Pads zu finden muss in `settings.py` folgende Werte eingetragen werden.
+Das Feld `baseurl` muss `baseurl = "https://pad.fridaysforfuture.is/p/"` sein.
+
 In `padnames` muss mindestens ein Padname eingetragen sein, also `padnames = ['Name des Pads']`, bei weiteren Pads mit Komma erweitern, also `padnames = ['Name des Pads', 'Anderer Name']`
 
 Die RegEx muss `regex = "http[s]?\:\/\/pad\.fridaysforfuture\.(?:is|de)\/p\/[\w\.\-\%]+"` sein, um eine URL auf ein FFF-Pad zu erkennen
