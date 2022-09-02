@@ -1,11 +1,11 @@
-baseurl = "https://example.com"
+baseurl = "https://example.com"	# Domain of etherpad
 
-padnames = ["Padnames"]
+padnames = ["Padname"]			# Name of Pads to start with
 
-urlextention = "/export/txt"
+urlextention = "/export/txt"		# add to URL to get content as txt
 
-regex = "" #RegEx for finding URLs
+regex = ""						# RegEx for finding URLs; should match the baseurl
 
-filepath = "/path/to/file.txt"
+filepath = "/path/to/file.txt"	# Filepath for files to search; i.e. chats
 
-filepath_export = "/path/to/"
+filepath_export = "/path/to/"	# Folder for Files with all found URLs, Telephonenumbers and E-Mail adresses
