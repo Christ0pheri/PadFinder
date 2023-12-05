@@ -5,9 +5,10 @@ import settings
 
 def FindPads(filepath = "", baseurl = "", padnames = [], phone_numbers = [], email_adresses = [], urlextention = "", regex = "", verbose = False):
 	ParseChats(filepath, baseurl = baseurl, padnames = padnames, urlextention = urlextention, regex = regex, verbose = verbose)
-	for name in padnames:
+	for index, name in enumerate(padnames):
 		if verbose:
 			print("Pad", name, "durchsuchen")
+			print(index + 1, "von", len(padnames))
 		text = OpenPads(baseurl = baseurl, padname = name, urlextention = urlextention, verbose = verbose)
 		if text == None:
 			continue
